@@ -1,12 +1,16 @@
 <!-- Search Bar -->
-<form class="search-container">
+<div class="search-container">
   <input class="search-bar"
     type="text"
     placeholder="Search anything..."
-    ng-model="searchString"
+    [ngModel]="searchString$ | async"
+    (ngModelChange)="updateSearchString($event)"
   >
-</form>
+</div>
 
 <!-- Content -->
 <div class="content-container">
+  <div class="entity" *ngFor="let entity of (entityList$ | async)">
+    {{entity.title}}
+  </div>
 </div>
