@@ -55,7 +55,8 @@ export class AppComponent implements OnInit {
         let filteredList = entities;
         if (searchString.length) {
           filteredList = filteredList.filter(entity => {
-            return entity.title.toLocaleLowerCase().includes(searchString.toLocaleLowerCase());
+            return entity.title.toLocaleLowerCase().
+              includes(searchString.toLocaleLowerCase());
           });
         }
         return filteredList;
@@ -66,5 +67,12 @@ export class AppComponent implements OnInit {
   /** Updates search string from form value */
   updateSearchString(input: string) {
     this.searchString$.next(input);
+  }
+
+  /** Opens link in a new tab */
+  openUrl(url: string) {
+    if (url) {
+      window.open(url, "_blank");
+    }
   }
 }

@@ -1,16 +1,36 @@
 <!-- Search Bar -->
-<div class="search-container">
-  <input class="search-bar"
-    type="text"
-    placeholder="Search anything..."
-    [ngModel]="searchString$ | async"
-    (ngModelChange)="updateSearchString($event)"
-  >
-</div>
+<input class="search-bar"
+  type="text"
+  placeholder="search anything..."
+  [ngModel]="searchString$ | async"
+  (ngModelChange)="updateSearchString($event)"
+>
 
 <!-- Content -->
-<div class="content-container">
-  <div class="entity" *ngFor="let entity of (entityList$ | async)">
-    {{entity.title}}
-  </div>
-</div>
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Type</th>
+      <th>Title</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let entity of (entityList$ | async)"
+        class="entity border" (click)="openUrl(entity.url)" >
+      <td>
+        <img *ngIf="entity.favorite === 'TRUE'" class="star" src="assets/star.png" />
+      </td>
+      <td>
+        {{entity.type}}
+      </td>
+      <td [class.text-secondary]="entity.url" (click)="openUrl(entity.url)">
+        {{entity.title}}
+      </td>
+      <td>
+        {{entity.description}}
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,4 +1,9 @@
 body {
     margin: auto;
-    width: 500px;
+    max-width: 750px;
+}
+
+img {
+    max-width: none;
+    border: none;
 }
