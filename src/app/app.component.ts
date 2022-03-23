@@ -62,7 +62,7 @@ export class AppComponent implements OnInit {
       this.repositories$.next(
         repos.map(repo => {
           return {
-            favorite: 'FALSE',
+            favorite: repo.stargazers_count ? 'TRUE' : 'FALSE',
             type: 'Project',
             title: repo.name,
             keywords: repo.topics.toString(),
