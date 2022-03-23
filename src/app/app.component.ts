@@ -59,7 +59,6 @@ export class AppComponent implements OnInit {
     this.httpClient.get<Repository[]>(
       this.GITHUB_ENDPOINT
     ).subscribe(repos => {
-      console.log(repos)
       this.repositories$.next(
         repos.map(repo => {
           return {
@@ -68,7 +67,7 @@ export class AppComponent implements OnInit {
             title: repo.name,
             keywords: repo.topics.toString(),
             description: repo.description,
-            url: repo.html_url
+            url: repo.homepage ? repo.homepage : repo.html_url
           } as Entity;
         })
       )
