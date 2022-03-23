@@ -1,8 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { GoogleSheetsDbService } from 'ng-google-sheets-db';
 import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
 import { Entity } from 'src/abstractions/entity';
 import { entityMap } from 'src/abstractions/entity-map';
+import { Repository } from 'src/abstractions/repo';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +15,8 @@ export class AppComponent implements OnInit {
 
   /** List of entities from the database */
   entities = new Observable<Entity[]>();
+
+  repositories$ = new BehaviorSubject<any[]>([]);
 
   /** String used for the search input */
   searchString$ = new BehaviorSubject<string>('');
@@ -26,7 +30,11 @@ export class AppComponent implements OnInit {
   /** Name of the spreadsheet */
   readonly SPREADSHEET_NAME = 'entities';
 
+  /** Endpoint to get the list of projects */
+  readonly GITHUB_ENDPOINT = 'https://api.github.com/users/namitoyokota/repos';
+
   constructor(
+    private httpClient: HttpClient,
     private googleSheetsDbService: GoogleSheetsDbService
   ) { }
 
@@ -34,9 +42,10 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.getEntities();
     this.filterEntities();
+    this.getRepos();
   }
   
-  /** Call google sheets service to get entities */
+  /** Call Google Sheets Service to get entities */
   getEntities() {
     this.entities = this.googleSheetsDbService.get<Entity>(
       this.SPREADSHEET_ID,
@@ -45,14 +54,36 @@ export class AppComponent implements OnInit {
     );
   }
 
+  /** Call Github API to get the list of repositories */
+  getRepos() {
+    this.httpClient.get<Repository[]>(
+      this.GITHUB_ENDPOINT
+    ).subscribe(repos => {
+      console.log(repos)
+      this.repositories$.next(
+        repos.map(repo => {
+          return {
+            favorite: 'FALSE',
+            type: 'Project',
+            title: repo.name,
+            keywords: repo.topics.toString(),
+            description: repo.description,
+            url: repo.html_url
+          } as Entity;
+        })
+      )
+    })
+  }
+
   /** Filter the list of entities from search string */
   filterEntities() {
     this.entityList$ = combineLatest([
       this.entities,
+      this.repositories$.asObservable(),
       this.searchString$.asObservable()
     ]).pipe(
-      map(([entities, searchString]) => {
-        let filteredList = entities;
+      map(([entities, repos, searchString]) => {
+        let filteredList = entities.concat(repos);
         if (searchString.length) {
           filteredList = filteredList.filter(entity => {
             return entity.title.toLocaleLowerCase().
