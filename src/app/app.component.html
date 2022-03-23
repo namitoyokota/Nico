@@ -13,7 +13,6 @@
       <th></th>
       <th>Type</th>
       <th>Title</th>
-      <th>Description</th>
       <th></th>
     </tr>
   </thead>
@@ -27,9 +26,6 @@
       </td>
       <td [class.text-secondary]="entity.url" [attr.popover-left]="entity.url ? entity.url : null" (click)="openUrl(entity.url)">
         {{entity.title}}
-      </td>
-      <td>
-        {{entity.description}}
       </td>
       <td>
         <label class="badge" [for]="i">View</label>
