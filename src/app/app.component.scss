@@ -10,9 +10,7 @@
   border: none;
 }
 
-.badge:hover,
-.modal-subtitle,
-.text-secondary:hover {
+.pointer:hover {
   cursor: pointer;
 }
 
@@ -25,4 +23,13 @@
   grid-template-columns: auto min-content;
   column-gap: 10px;
   align-items: center;
+}
+
+.badge {
+  margin-right: 5px;
+}
+
+.modal-text {
+  display: grid;
+  grid-template-rows: min-content auto;
 }

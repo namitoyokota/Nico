@@ -107,4 +107,9 @@ export class AppComponent implements OnInit {
       window.open(url, "_blank");
     }
   }
+
+  /** Parse comma separated keywords into string array */
+  parseKeywords(keywords: string) {
+    return keywords.split(',');
+  }
 }

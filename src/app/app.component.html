@@ -24,11 +24,11 @@
       <td>
         {{entity.type}}
       </td>
-      <td [class.text-secondary]="entity.url" [attr.popover-left]="entity.url ? entity.url : null" (click)="openUrl(entity.url)">
+      <td [class.text-secondary]="entity.url" [class.pointer]="entity.url" [attr.popover-left]="entity.url ? entity.url : null" (click)="openUrl(entity.url)">
         {{entity.title}}
       </td>
       <td>
-        <label class="badge" [for]="i">View</label>
+        <label class="badge pointer" [for]="i">View</label>
         <input class="modal-state" [id]="i" type="checkbox">
         <div class="modal">
           <label class="modal-bg" [for]="i">{{entity.keywords}}</label>
@@ -37,11 +37,17 @@
               <span>{{entity.title}}</span>
               <img *ngIf="entity.favorite === 'TRUE'" class="star" src="assets/star.png" />
             </h4>
-            <h5 class="modal-subtitle" (click)="openUrl(entity.url)">{{entity.url}}</h5>
-            <p class="modal-text">
-              {{entity.keywords}}
-              {{entity.description}}
-            </p>
+            <h5 class="modal-subtitle pointer" (click)="openUrl(entity.url)">{{entity.url}}</h5>
+            <div class="modal-text">
+              <div *ngIf="entity.keywords.length">
+                <p *ngFor="let keyword of parseKeywords(entity.keywords)" class="badge">
+                  {{keyword}}
+                </p>
+              </div>
+              <span>
+                {{entity.description}}
+              </span>
+            </div>
           </div>
         </div>
       </td>
