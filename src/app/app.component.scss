@@ -12,10 +12,19 @@
   border: none;
 }
 
+.badge:hover,
+.modal-subtitle,
 .text-secondary:hover {
   cursor: pointer;
 }
 
 .star {
   height: 25px;
+}
+
+.modal-title {
+  display: grid;
+  grid-template-columns: auto min-content;
+  column-gap: 10px;
+  align-items: center;
 }

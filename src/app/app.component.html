@@ -14,22 +14,40 @@
       <th>Type</th>
       <th>Title</th>
       <th>Description</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let entity of (entityList$ | async)"
-        class="entity border" (click)="openUrl(entity.url)" >
+    <tr *ngFor="let entity of (entityList$ | async); let i = index" class="entity border" >
       <td>
         <img *ngIf="entity.favorite === 'TRUE'" class="star" src="assets/star.png" />
       </td>
       <td>
         {{entity.type}}
       </td>
-      <td [class.text-secondary]="entity.url" (click)="openUrl(entity.url)">
+      <td [class.text-secondary]="entity.url" [attr.popover-left]="entity.url ? entity.url : null" (click)="openUrl(entity.url)">
         {{entity.title}}
       </td>
       <td>
         {{entity.description}}
+      </td>
+      <td>
+        <label class="badge" [for]="i">View</label>
+        <input class="modal-state" [id]="i" type="checkbox">
+        <div class="modal">
+          <label class="modal-bg" [for]="i">{{entity.keywords}}</label>
+          <div class="modal-body">
+            <h4 class="modal-title">
+              <span>{{entity.title}}</span>
+              <img *ngIf="entity.favorite === 'TRUE'" class="star" src="assets/star.png" />
+            </h4>
+            <h5 class="modal-subtitle" (click)="openUrl(entity.url)">{{entity.url}}</h5>
+            <p class="modal-text">
+              {{entity.keywords}}
+              {{entity.description}}
+            </p>
+          </div>
+        </div>
       </td>
     </tr>
   </tbody>
