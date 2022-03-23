@@ -5,6 +5,7 @@ import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
 import { Entity } from 'src/abstractions/entity';
 import { entityMap } from 'src/abstractions/entity-map';
 import { Repository } from 'src/abstractions/repo';
+import { Types } from 'src/abstractions/type';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,7 @@ import { Repository } from 'src/abstractions/repo';
 export class AppComponent implements OnInit {
 
   /** List of entities from the database */
-  entities = new Observable<Entity[]>();
+  entities = new BehaviorSubject<Entity[]>([]);
 
   repositories$ = new BehaviorSubject<any[]>([]);
 
@@ -23,6 +24,8 @@ export class AppComponent implements OnInit {
 
   /** List of entities after search filter */
   entityList$ = new Observable<Entity[]>();
+
+  typeList: string[] = [];
 
   /** ID from the google sheets URL */
   readonly SPREADSHEET_ID = '1I5H2dRgRINs6Mkj7KbY0zbhdFbxRGW8cJqzRuNoUFUE';
@@ -40,17 +43,26 @@ export class AppComponent implements OnInit {
 
   /** On init lifecycle hook */
   ngOnInit(): void {
-    this.getEntities();
+    this.typeList = Object.values(Types);
+
+    this.typeList.map(type => {
+      this.getEntities(type);
+    });
+  
     this.filterEntities();
     this.getRepos();
   }
   
   /** Call Google Sheets Service to get entities */
-  getEntities() {
-    this.entities = this.googleSheetsDbService.get<Entity>(
+  getEntities(spreadsheetName: string) {
+    this.googleSheetsDbService.get<Entity>(
       this.SPREADSHEET_ID,
-      this.SPREADSHEET_NAME,
+      spreadsheetName,
       entityMap
+    ).subscribe(entities =>
+      this.entities.next(
+        this.entities.getValue().concat(entities)
+      )
     );
   }
 
