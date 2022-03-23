@@ -85,8 +85,10 @@ export class AppComponent implements OnInit {
         let filteredList = entities.concat(repos);
         if (searchString.length) {
           filteredList = filteredList.filter(entity => {
-            return entity.title.toLocaleLowerCase().
-              includes(searchString.toLocaleLowerCase());
+            return entity.type.toLocaleLowerCase().includes(searchString.toLocaleLowerCase()) ||
+              entity.title.toLocaleLowerCase().includes(searchString.toLocaleLowerCase()) ||
+              entity.description.toLocaleLowerCase().includes(searchString.toLocaleLowerCase()) ||
+              entity.keywords.toLocaleLowerCase().includes(searchString.toLocaleLowerCase());
           });
         }
         return filteredList;
