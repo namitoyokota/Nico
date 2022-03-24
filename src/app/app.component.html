@@ -1,10 +1,13 @@
-<!-- Search Bar -->
-<input class="search-bar"
-  type="text"
-  placeholder="search anything..."
-  [ngModel]="searchString$ | async"
-  (ngModelChange)="updateSearchString($event)"
->
+<!-- Header -->
+<div class="header">
+  <input class="search-bar"
+    type="text"
+    placeholder="search anything..."
+    [ngModel]="searchString$ | async"
+    (ngModelChange)="updateSearchString($event)"
+  >
+  <div class="search-speed">{{searchSpeed}} ms</div>
+</div>
 
 <!-- Content -->
 <table>

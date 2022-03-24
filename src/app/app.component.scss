@@ -5,9 +5,22 @@
   margin: 20px 0;
 }
 
+.header {
+  display: grid;
+  grid-template-columns: auto min-content;
+  column-gap: 10px;
+  align-items: center;
+  margin: 0 50px;
+}
+
 .search-bar{
   width: 100%;
   border: none;
+}
+
+.search-speed {
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .pointer:hover {

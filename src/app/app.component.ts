@@ -25,7 +25,11 @@ export class AppComponent implements OnInit {
   /** List of entities after search filter */
   entityList$ = new Observable<Entity[]>();
 
+  /** List of types from the enum */
   typeList: string[] = [];
+
+  /** How long the search took in ms */
+  searchSpeed: number = 0;
 
   /** ID from the google sheets URL */
   readonly SPREADSHEET_ID = '1I5H2dRgRINs6Mkj7KbY0zbhdFbxRGW8cJqzRuNoUFUE';
@@ -96,12 +100,15 @@ export class AppComponent implements OnInit {
       map(([entities, repos, searchString]) => {
         let filteredList = entities.concat(repos);
         if (searchString.length) {
+          const startDate = new Date();
           filteredList = filteredList.filter(entity => {
             return entity.type.toLocaleLowerCase().includes(searchString.toLocaleLowerCase()) ||
               entity.title.toLocaleLowerCase().includes(searchString.toLocaleLowerCase()) ||
               entity.description.toLocaleLowerCase().includes(searchString.toLocaleLowerCase()) ||
               entity.keywords.toLocaleLowerCase().includes(searchString.toLocaleLowerCase());
           });
+          const endDate = new Date();
+          this.searchSpeed = endDate.getTime() - startDate.getTime();
         }
         return filteredList;
       })
