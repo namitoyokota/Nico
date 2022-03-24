@@ -1,6 +1,7 @@
 export enum Types {
-    book = 'Book',
-    website = 'Website',
     account = 'Account',
-    project = 'Project'
+    book = 'Book',
+    note = 'Note',
+    project = 'Project',
+    website = 'Website',
 }
