@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   /** List of entities from the database */
   entities = new BehaviorSubject<Entity[]>([]);
 
+  /** List of repositories from GitHub */
   repositories$ = new BehaviorSubject<any[]>([]);
 
   /** String used for the search input */
@@ -30,6 +31,9 @@ export class AppComponent implements OnInit {
 
   /** How long the search took in ms */
   searchSpeed: number = 0;
+
+  /** Number of results returned */
+  resultCount: number = 0;
 
   /** ID from the google sheets URL */
   readonly SPREADSHEET_ID = '1I5H2dRgRINs6Mkj7KbY0zbhdFbxRGW8cJqzRuNoUFUE';
@@ -110,6 +114,8 @@ export class AppComponent implements OnInit {
           const endDate = new Date();
           this.searchSpeed = endDate.getTime() - startDate.getTime();
         }
+
+        this.resultCount = filteredList.length;
         return filteredList;
       })
     );

@@ -7,7 +7,7 @@
 
 .header {
   display: grid;
-  grid-template-columns: auto min-content;
+  grid-template-columns: auto repeat(2, min-content);
   column-gap: 10px;
   align-items: center;
   margin: 0 50px;
@@ -16,6 +16,12 @@
 .search-bar{
   width: 100%;
   border: none;
+}
+
+.result-count {
+  text-overflow: ellipsis; 
+  overflow: hidden; 
+  white-space: nowrap;
 }
 
 .search-speed {

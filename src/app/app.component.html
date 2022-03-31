@@ -6,6 +6,7 @@
     [ngModel]="searchString$ | async"
     (ngModelChange)="updateSearchString($event)"
   >
+  <div class="result-count">{{resultCount}} results :</div>
   <div class="search-speed">{{searchSpeed}} ms</div>
 </div>
 
