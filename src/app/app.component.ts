@@ -103,14 +103,18 @@ export class AppComponent implements OnInit {
     ]).pipe(
       map(([entities, repos, searchString]) => {
         let filteredList = entities.concat(repos);
+
+        this.searchSpeed = 0;
         if (searchString.length) {
           const startDate = new Date();
+
           filteredList = filteredList.filter(entity => {
             return entity.type.toLocaleLowerCase().includes(searchString.toLocaleLowerCase()) ||
               entity.title.toLocaleLowerCase().includes(searchString.toLocaleLowerCase()) ||
               entity.description.toLocaleLowerCase().includes(searchString.toLocaleLowerCase()) ||
               entity.keywords.toLocaleLowerCase().includes(searchString.toLocaleLowerCase());
           });
+
           const endDate = new Date();
           this.searchSpeed = endDate.getTime() - startDate.getTime();
         }
