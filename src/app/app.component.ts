@@ -20,6 +20,9 @@ export class AppComponent implements OnInit {
   /** List of repositories from GitHub */
   repositories$ = new BehaviorSubject<any[]>([]);
 
+  /** Toggle to filter non-favorited entities */
+  favoriteFilter$ = new BehaviorSubject<boolean>(false);
+
   /** String used for the search input */
   searchString$ = new BehaviorSubject<string>('');
 
@@ -99,10 +102,16 @@ export class AppComponent implements OnInit {
     this.entityList$ = combineLatest([
       this.entities,
       this.repositories$.asObservable(),
+      this.favoriteFilter$.asObservable(),
       this.searchString$.asObservable()
     ]).pipe(
-      map(([entities, repos, searchString]) => {
+      map(([entities, repos, toggle, searchString]) => {
         let filteredList = entities.concat(repos);
+
+        if (toggle) {
+          console.log(toggle);
+          filteredList = filteredList.filter(entity => entity.favorite === 'TRUE');
+        }
 
         this.searchSpeed = 0;
         if (searchString.length) {
@@ -123,6 +132,11 @@ export class AppComponent implements OnInit {
         return filteredList;
       })
     );
+  }
+
+  /** Toggles favorite filter */
+  toggleFavorite() {
+    this.favoriteFilter$.next(!this.favoriteFilter$.getValue());
   }
 
   /** Updates search string from form value */

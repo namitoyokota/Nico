@@ -1,5 +1,10 @@
 <!-- Header -->
 <div class="header">
+  <img class="star pointer"
+    src="assets/star.png"
+    [class.disabled]="!(favoriteFilter$ | async)"
+    (click)="toggleFavorite()"
+  />
   <input class="search-bar"
     autofocus
     type="text"
