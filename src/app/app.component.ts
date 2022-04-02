@@ -32,9 +32,6 @@ export class AppComponent implements OnInit {
   /** List of types from the enum */
   typeList: string[] = [];
 
-  /** How long the search took in ms */
-  searchSpeed: number = 0;
-
   /** Number of results returned */
   resultCount: number = 0;
 
@@ -113,19 +110,13 @@ export class AppComponent implements OnInit {
           filteredList = filteredList.filter(entity => entity.favorite === 'TRUE');
         }
 
-        this.searchSpeed = 0;
         if (searchString.length) {
-          const startDate = new Date();
-
           filteredList = filteredList.filter(entity => {
             return entity.type.toLocaleLowerCase().includes(searchString.toLocaleLowerCase()) ||
               entity.title.toLocaleLowerCase().includes(searchString.toLocaleLowerCase()) ||
               entity.description.toLocaleLowerCase().includes(searchString.toLocaleLowerCase()) ||
               entity.keywords.toLocaleLowerCase().includes(searchString.toLocaleLowerCase());
           });
-
-          const endDate = new Date();
-          this.searchSpeed = endDate.getTime() - startDate.getTime();
         }
 
         this.resultCount = filteredList.length;

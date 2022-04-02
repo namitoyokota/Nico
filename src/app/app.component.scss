@@ -7,7 +7,7 @@
 
 .header {
   display: grid;
-  grid-template-columns: min-content auto repeat(2, min-content);
+  grid-template-columns: min-content auto min-content;
   column-gap: 20px;
   align-items: center;
   margin: 0 10px;
