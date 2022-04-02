@@ -17,6 +17,10 @@
   filter: grayscale(100%);
 }
 
+.underline {
+  text-decoration: underline;
+}
+
 .search-bar{
   width: 100%;
   border: none;
@@ -28,17 +32,16 @@
   white-space: nowrap;
 }
 
-.search-speed {
-  overflow: hidden;
-  white-space: nowrap;
-}
-
 .pointer:hover {
   cursor: pointer;
 }
 
 .star {
   height: 25px;
+}
+
+.column:hover {
+  text-decoration: underline;
 }
 
 .modal-title {

@@ -20,8 +20,8 @@
   <thead>
     <tr>
       <th></th>
-      <th>Type</th>
-      <th>Title</th>
+      <th class="column pointer" [class.underline]="(selectedSort$ | async) === 'type'" (click)="updateSort('type')">Type</th>
+      <th class="column pointer" [class.underline]="(selectedSort$ | async) === 'title'" (click)="updateSort('title')">Title</th>
       <th></th>
     </tr>
   </thead>

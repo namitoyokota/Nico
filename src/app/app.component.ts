@@ -26,6 +26,12 @@ export class AppComponent implements OnInit {
   /** String used for the search input */
   searchString$ = new BehaviorSubject<string>('');
 
+  /** Sorting option currently selected */
+  selectedSort$ = new BehaviorSubject<string>('type');
+
+  /** Currently selected sort direction */
+  sortDirection$ = new BehaviorSubject<boolean>(true);
+
   /** List of entities after search filter */
   entityList$ = new Observable<Entity[]>();
 
@@ -100,13 +106,14 @@ export class AppComponent implements OnInit {
       this.entities,
       this.repositories$.asObservable(),
       this.favoriteFilter$.asObservable(),
-      this.searchString$.asObservable()
+      this.searchString$.asObservable(),
+      this.selectedSort$.asObservable(),
+      this.sortDirection$.asObservable()
     ]).pipe(
-      map(([entities, repos, toggle, searchString]) => {
+      map(([entities, repos, toggle, searchString, sort, direction]) => {
         let filteredList = entities.concat(repos);
 
         if (toggle) {
-          console.log(toggle);
           filteredList = filteredList.filter(entity => entity.favorite === 'TRUE');
         }
 
@@ -117,6 +124,17 @@ export class AppComponent implements OnInit {
               entity.description.toLocaleLowerCase().includes(searchString.toLocaleLowerCase()) ||
               entity.keywords.toLocaleLowerCase().includes(searchString.toLocaleLowerCase());
           });
+        }
+
+        console.log(sort);
+
+        filteredList = filteredList.sort((a, b) => {
+          if (sort === 'type') return a.type > b.type ? 1 : -1;
+          else return a.title > b.title ? 1 : -1;
+        });
+
+        if (!direction) {
+          filteredList.reverse();
         }
 
         this.resultCount = filteredList.length;
@@ -133,6 +151,17 @@ export class AppComponent implements OnInit {
   /** Updates search string from form value */
   updateSearchString(input: string) {
     this.searchString$.next(input);
+  }
+
+  /** Updates sort option on user click */
+  updateSort(option: string) {
+    const currentOption = this.selectedSort$.getValue();
+    if (option === currentOption) {
+      this.sortDirection$.next(!this.sortDirection$.getValue());
+    } else {
+      this.selectedSort$.next(option);
+      this.sortDirection$.next(true);
+    }
   }
 
   /** Opens link in a new tab */
