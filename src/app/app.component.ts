@@ -146,4 +146,9 @@ export class AppComponent implements OnInit {
   parseKeywords(keywords: string) {
     return keywords.split(',');
   }
+
+  /** Copy url to clipboard */
+  copy(url: string) {
+    navigator.clipboard.writeText(url);
+  }
 }
