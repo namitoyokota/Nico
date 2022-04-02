@@ -3,6 +3,7 @@ export enum Types {
     book = 'Book',
     code = 'Code',
     course = 'Course',
+    dictionary = 'Dictionary',
     food = 'Food',
     film = 'Film',
     job = 'Job',
