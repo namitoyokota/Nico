@@ -97,7 +97,7 @@ export class AppComponent implements OnInit {
           } as Entity;
         })
       )
-    })
+    });
   }
 
   /** Filter the list of entities from search string */
@@ -125,8 +125,6 @@ export class AppComponent implements OnInit {
               entity.keywords.toLocaleLowerCase().includes(searchString.toLocaleLowerCase());
           });
         }
-
-        console.log(sort);
 
         filteredList = filteredList.sort((a, b) => {
           if (sort === 'type') return a.type > b.type ? 1 : -1;
