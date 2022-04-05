@@ -5,10 +5,13 @@ export enum Types {
     course = 'Course',
     dictionary = 'Dictionary',
     food = 'Food',
+    file = 'File',
     film = 'Film',
     job = 'Job',
     place = 'Place',
-    note = 'Note',
-    website = 'Website',
-    tool = 'Tool'
+    pocket = 'Pocket',
+    song = 'Song',
+    tool = 'Tool',
+    tweet = 'Tweet',
+    website = 'Website
 }
