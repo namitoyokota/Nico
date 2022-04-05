@@ -8,10 +8,11 @@ export enum Types {
     file = 'File',
     film = 'Film',
     job = 'Job',
+    note = 'Note',
     place = 'Place',
     pocket = 'Pocket',
     song = 'Song',
     tool = 'Tool',
     tweet = 'Tweet',
-    website = 'Website
+    website = 'Website'
 }
