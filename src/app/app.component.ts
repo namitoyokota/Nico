@@ -119,10 +119,10 @@ export class AppComponent implements OnInit {
 
         if (searchString.length) {
           filteredList = filteredList.filter(entity => {
-            return entity.type.toLocaleLowerCase().includes(searchString.toLocaleLowerCase()) ||
-              entity.title.toLocaleLowerCase().includes(searchString.toLocaleLowerCase()) ||
-              entity.description.toLocaleLowerCase().includes(searchString.toLocaleLowerCase()) ||
-              entity.keywords.toLocaleLowerCase().includes(searchString.toLocaleLowerCase());
+            return entity.type?.toLocaleLowerCase().includes(searchString?.toLocaleLowerCase()) ||
+              entity.title?.toLocaleLowerCase().includes(searchString?.toLocaleLowerCase()) ||
+              entity.description?.toLocaleLowerCase().includes(searchString?.toLocaleLowerCase()) ||
+              entity.keywords?.toLocaleLowerCase().includes(searchString?.toLocaleLowerCase());
           });
         }
 
