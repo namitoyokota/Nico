@@ -1,6 +1,6 @@
 {
-  "name": "personal-search-engine",
-  "version": "0.0.4",
+  "name": "Nico",
+  "version": "0.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

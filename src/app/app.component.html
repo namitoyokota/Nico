@@ -16,7 +16,7 @@
 </div>
 
 <!-- Content -->
-<table>
+<table *ngIf="(entityList$ | async)?.length">
   <thead>
     <tr>
       <th></th>
@@ -33,7 +33,7 @@
       <td>
         {{entity.type}}
       </td>
-      <td [class.text-secondary]="entity.url" [class.pointer]="entity.url" [attr.popover-left]="entity.url ? entity.url : null" (click)="openUrl(entity.url)">
+      <td class="title" [class.text-secondary]="entity.url" [class.pointer]="entity.url" [attr.popover-left]="entity.url ? entity.url : null" (click)="openUrl(entity.url)">
         {{entity.title}}
       </td>
       <td>
@@ -64,3 +64,7 @@
     </tr>
   </tbody>
 </table>
+
+<div *ngIf="!(entityList$ | async)?.length" class="no-result">
+  No results found
+</div>

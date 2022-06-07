@@ -3,6 +3,7 @@
   grid-template-rows: min-content auto;
   row-gap: 10px;
   margin: 20px 0;
+  overflow: hidden;
 }
 
 .header {
@@ -11,6 +12,10 @@
   column-gap: 20px;
   align-items: center;
   margin: 0 10px;
+}
+
+table {
+  overflow: hidden;
 }
 
 .disabled {
@@ -68,4 +73,13 @@
 
 .copy-btn {
   margin-top: 25px;
+}
+
+.title {
+  word-break: break-word;
+}
+
+.no-result {
+  display: grid;
+  justify-content: center;
 }
