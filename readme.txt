@@ -1,1 +1,1 @@
-nico - my second brain
+# nico - my second brain
